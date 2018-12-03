@@ -7,7 +7,7 @@
         </ul>
          <div v-else class="biaoshi"><span>全部频道</span></div>
       </div>
-      <div class="rightBtn" @click="isRotate=!isRotate" >
+      <div class="rightBtn" @click="handleRotate" >
         <span :class="{active:isRotate}" ></span>
       </div>
     </div>
@@ -41,13 +41,25 @@
     data () {
       return {
         navlist: ['推荐', '居家', '配件', '服装', '电器', '洗护', '饮食', '餐厨', '婴童', '文体', '特色区'],
+        roterList:['tuijian','jujia','peijian','fuzhuang','dianqi','xihu','yinshi','canchu','yinger','wenti','tesequ'],
         targetindex:0,
         isRotate:false
       }
     },
     methods:{
       changetarget(index){
+        this.$router.push(`/home/${this.roterList[index]}`)
         this.targetindex=index
+
+      },
+      handleRotate(){
+        this.isRotate=!this.isRotate
+        this.$nextTick(()=>{
+          new BScroll('.leftList',{
+            scrollX: true,
+            click: true
+          })
+        })
       }
     }
   }
